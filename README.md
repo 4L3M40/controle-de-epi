@@ -14,7 +14,7 @@
 ---
 
 ## 2) DER (conforme as 5 tabelas)
-
+<img width="1045" height="842" alt="Image" src="https://github.com/user-attachments/assets/72d16f87-cfce-46c9-93fe-622e7ad59173" />
 
 --- 
 ## 3) Diagrama de Casos de Uso
