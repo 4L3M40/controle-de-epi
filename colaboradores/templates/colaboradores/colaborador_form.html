@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}{{ view.object|default_if_none:"Novo Colaborador" }}{% endblock %}
+{% block content %}
+<h1 class="h3 mb-3">{% if view.object %}Editar{% else %}Novo{% endif %} Colaborador</h1>
+<form method="post" novalidate>
+  {% csrf_token %}
+  <div class="mb-3">
+    <label class="form-label">Nome</label>
+    {{ form.nome }}
+    {% for e in form.nome.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}
+  </div>
+  <div class="mb-3">
+    <label class="form-label">CPF (11 dígitos)</label>
+    {{ form.cpf }}
+    {% for e in form.cpf.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Matrícula</label>
+    {{ form.matricula }}
+    {% for e in form.matricula.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}
+  </div>
+  <div class="form-check mb-3">
+    {{ form.ativo }} <label class="form-check-label">Ativo</label>
+  </div>
+  <a href="{% url 'colaboradores:list' %}" class="btn btn-outline-secondary">Cancelar</a>
+  <button class="btn btn-primary" type="submit">Salvar</button>
+</form>
+{% endblock %}
