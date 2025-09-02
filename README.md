@@ -1,3 +1,105 @@
+# EPI MVP — Etapa 2 (Django)
+
+CRUD de **Colaboradores** com persistência em **MySQL**, desenvolvido em **Python/Django**.
+
+## 📦 Tecnologias
+- Django 4.2 (LTS)
+- MySQL 8.0
+- mysqlclient
+- Bootstrap 5 (CDN)
+
+  ---
+
+## 🚀 Como executar (VS Code)
+
+## 1) Clone / crie o projeto
+ ```
+ git clone https://github.com/<sua-conta>/epi-mvp.git
+cd epi_mvp
+```
+---
+## 2) Ambiente virtual
+```
+python -m venv .venv
+ Windows: .venv\Scripts\activate
+ Linux/Mac:
+source .venv/bin/activate
+```
+---
+## 3) Dependências
+```
+pip install -r requirements.txt
+```
+---
+
+## 4) Configurar variáveis (copie e edite .env)
+```
+cp .env.example .env
+```
+---
+## 5) Migrações
+```
+python manage.py makemigrations colaboradores
+python manage.py migrate
+```
+---
+## 6) Rodar
+```python manage.py runserver
+# Abra http://127.0.0.1:8000/ (redireciona para /colaboradores/)
+```
+---
+
+> Obs.: o banco configurado no `.env` (DB_NAME=epi_simplificado) deve existir em seu MySQL.
+
+## 👤 Acesso ao admin (opcional)
+```bash
+python manage.py createsuperuser
+# depois acesse: http://127.0.0.1:8000/admin/
+```
+
+## 🧭 Rotas principais
+- `GET /colaboradores/` — lista com paginação e busca
+- `GET /colaboradores/novo/` — formulário de criação
+- `GET /colaboradores/<id>/editar/` — edição
+- `GET /colaboradores/<id>/excluir/` — confirmação de exclusão
+
+## 🗃️ Diagrama ER (Mermaid)
+```mermaid
+erDiagram
+    COLABORADOR {
+      BIGINT id PK
+      VARCHAR nome
+      CHAR cpf
+      VARCHAR matricula
+      BOOL ativo
+      DATETIME criado_em
+      DATETIME atualizado_em
+    }
+```
+
+## 🧩 Caso de Uso (Mermaid)
+```mermaid
+flowchart LR
+  U3[Almoxarife] --- UC3[(Gerir Colaboradores)]
+  U3 --- UC5[(Registrar Empréstimo)]
+```
+---
+
+## ✅ Requisitos cobertos
+- CRUD completo de Colaboradores.
+- Persistência MySQL via ORM.
+- Validações de unicidade (CPF, matrícula).
+- Busca e paginação.
+
+---
+
+## 🧪 Teste rápido
+1. Suba o MySQL (local ou via docker-compose).
+2. `python manage.py migrate`
+3. Acesse `/colaboradores/`, crie/edite/exclua, e verifique no banco.
+
+---
+
 # 📌 Sistema de Controle de EPIs
 
 ## 1) Escopo resumido
@@ -18,6 +120,8 @@
 
 --- 
 ## 3) Diagrama de Casos de Uso
+
+```mermaid
 flowchart LR
   subgraph Atores
     U1[Administrador]
@@ -47,14 +151,8 @@ flowchart LR
   U3 --- UC6
   U2 --- UC7
   U3 --- UC7
-  U4 --- UC7
-  
 
-Fluxos principais (resumidos)
-
-Empréstimo: selecionar colaborador → adicionar EPIs/quantidades → salvar (gera emprestimo + emprestimo_item e baixa simples em epi.estoque).
-
-Devolução: localizar empréstimo/itens pendentes → informar retornos → atualizar devolvido_em e somar no epi.estoque.
+```
 
 ---
 
@@ -91,8 +189,9 @@ RNF05 — Manutenibilidade: arquitetura em camadas (API, serviço, persistência
 RNF06 — Portabilidade: MySQL 8.0+, compatível com Workbench.
 
 ---
-
 ## 6) Wireframes (mínimos)
+
+```text
 Login
 +-------------------------+
 |  LOGO                   |
@@ -132,6 +231,8 @@ Devolução
 Filtro: [Colaborador] [Somente pendentes]
 | Empréstimo | EPI | Qtde | Entregue em | Devolver [__] | Ação |
 [ Confirmar devolução ]
+
+```
 
 --- 
 
